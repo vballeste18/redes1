@@ -89,8 +89,8 @@ int main(int argc, char **argv) {
 		case '?':
 			if (optopt == 'n' | optopt == 'h' | optopt == 'p' | optopt == 'a')
 				fprintf(stderr, "La opcion -%c requiere un argumento.\n",
-						optopt);
-			else if (isprint(optopt))
+				optopt);
+				else if (isprint(optopt))
 				fprintf(stderr,
 						"Opcion desconocida `-%c'.\nOpciones validas: -h -p -n -a \n",
 						optopt);
@@ -98,10 +98,10 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "Caracter desconocido en opcion `\\x%x'.\n",
 						optopt);
 
-			return 1;
-		default:
-			abort();
-		}
+				return 1;
+				default:
+				abort();
+			}
 	if (contador != 4) {
 		printf(
 				"Introduzca todos lo argumentos : -n (nombre) -p (puerto) -h (host) -a (archivo)\n");
@@ -165,23 +165,23 @@ int main(int argc, char **argv) {
 		}
 		sleep(1);
 
-		/*FILE *fp;
-		 char linea[512], *lineaLimpia;
-		 fp = fopen(archivo, "r");
-		 if (fp == NULL){
-		 printf("\nError de apertura del archivo.\n");
-		 }else{
-		 while (feof(fp) == 0){
+		FILE *fp;
+		char linea[1000001];
+		fp = fopen(archivo, "r");
+		if (fp == NULL) {
+			printf("\nError de apertura del archivo.\n");
+		} else {
+			while (feof(fp) == 0) {
 
-		 fgets(linea, 512 ,fp);
-		 lineaLimpia = strtok(linea,"\n");
-		 strcat(lineaLimpia,"\0");
-		 send(sockfd,lineaLimpia,strlen(lineaLimpia),0);
-		 sleep(1);
+				fgets(linea, 1000000, fp);
+				int length = strlen(linea);
+				linea[length] = '\0';
+				send(sockfd, linea, strlen(linea), 0);
+				sleep(1);
 
-		 }
-		 }
-		 fclose(fp);*/
+			}
+		}
+		fclose(fp);
 
 		pthread_join(hilos[0], NULL);
 		pthread_join(hilos[1], NULL);
