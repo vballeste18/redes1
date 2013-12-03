@@ -22,7 +22,7 @@ Lista insertarNodo(Lista l, int id, char *usu)
  char *user =(char *)malloc(strlen(usu+2)*sizeof(char)); 
  strcpy(user, usu);
  printf("user: %s\n", user);
- strcat(user,"\n");
+//strcat(user,"\n");
 
  Lista aux;
  NODO *elem=(NODO *)malloc(sizeof(NODO));

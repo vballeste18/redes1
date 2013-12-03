@@ -166,23 +166,24 @@ int main (int argc, char **argv){
         exit(0);
     }
 	sleep(1);
-    FILE *fp;
-    char linea[512], *lineaLimpia;
-    fp = fopen(archivo, "r");
-    if (fp == NULL){
-        printf("\nError de apertura del archivo.\n");
-    }else{
-        while (feof(fp) == 0){
 
-                fgets(linea, 512 ,fp);
-                lineaLimpia = strtok(linea,"\n");
-                strcat(lineaLimpia,"\0");
-                send(sockfd,lineaLimpia,strlen(lineaLimpia),0);
-				sleep(1);
-                
-            }
-    }
-    fclose(fp);
+  /*FILE *fp;
+  char linea[512], *lineaLimpia;
+  fp = fopen(archivo, "r");
+  if (fp == NULL){
+      printf("\nError de apertura del archivo.\n");
+  }else{
+      while (feof(fp) == 0){
+
+              fgets(linea, 512 ,fp);
+              lineaLimpia = strtok(linea,"\n");
+              strcat(lineaLimpia,"\0");
+              send(sockfd,lineaLimpia,strlen(lineaLimpia),0);
+			sleep(1);
+              
+          }
+  }
+  fclose(fp);*/
     
     pthread_join(hilos[0],NULL);
     pthread_join(hilos[1],NULL);
