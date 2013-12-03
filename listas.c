@@ -33,6 +33,8 @@ Lista insertarNodo(Lista l, int id, char *usu) {
 		l.primero = elem;
 		l.ult = l.primero;
 	} else {
+		printf("l.ult->usuario: %s", l.ult->usuario);
+		printf("elem->usuario: %s", elem->usuario);
 		l.ult->sig = elem;
 		l.ult = l.ult->sig;
 	}
@@ -40,11 +42,11 @@ Lista insertarNodo(Lista l, int id, char *usu) {
 }
 
 // Inserta una sala en el nodo seleccionado
-NODO *insertarSala(NODO *e, char *usu) {
-	char *sala = (char *) malloc(strlen(usu + 2) * sizeof(char));
+NODO *insertarSala(NODO *e, char *sal) {
+	char *sala = (char *) malloc(strlen(sal + 2) * sizeof(char));
 
 	cajaSala *aux, *auxant;
-	strcpy(sala, usu);
+	strcpy(sala, sal);
 	printf("sala: %s\n", sala);
 	strcat(sala, "\n");
 

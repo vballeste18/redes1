@@ -22,19 +22,18 @@ int hijo;
 
 // Proceso para recibir mensajes del servidor.
 void* recibir(void* p) {
-	int* id, readsize;
+	int id, readsize;
 	char buffer[MAXLINE];
-	id = (int*) p;
+	id = *((int*) p);
 	while (1) {
 
-		readsize = recv(*id, buffer, MAXLINE, 0);
-		buffer[strlen(buffer)] = '\0';
+		readsize = recv(id, buffer, MAXLINE, 0);
+		buffer[readsize] = '\0';
 		if (strncmp("salida", buffer, strlen(buffer) + 1) == 0) {
 			hijo = 2;
 			pthread_exit(NULL);
 		}
 		printf("%s", buffer);
-		memset(buffer, 0, strlen(buffer) + 1);
 		fflush(stdout);
 	}
 }

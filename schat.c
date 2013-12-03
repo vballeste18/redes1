@@ -47,16 +47,16 @@ int main(int argc, char *argv[]) {
 		case '?':
 			if (optopt == 's' | optopt == 'p')
 				fprintf(stderr, "Opcion -%c requiere un argumento.\n", optopt);
-			else if (isprint(optopt))
+				else if (isprint(optopt))
 				fprintf(stderr,
 						"Opcion no valida `-%c'.\nOpciones validas: -p : puerto -s : sala \n",
 						optopt);
 			else
 				fprintf(stderr, "Caracteres desconocidos `\\x%x'.\n", optopt);
-			return 1;
-		default:
-			abort();
-		}
+				return 1;
+				default:
+				abort();
+			}
 	if (port == 0) {
 		printf("Puerto no valido\n");
 		return 1;
@@ -183,8 +183,8 @@ int comandos(int sock, char* client_message) {
 		NODO *aux = l.primero;
 		while (aux != NULL) {
 			auxN = getUsuario(aux);
-            printf("auxN: '%s'", auxN);
-			write(sock, auxN, 50);
+			printf("auxN: '%s'", auxN);
+			write(sock, auxN, strlen(auxN));
 			aux = aux->sig;
 			//memset(nombre,0,50);
 		}
@@ -195,8 +195,9 @@ int comandos(int sock, char* client_message) {
 		int fdSock;
 		unsigned i = 0;
 		NODO *aux = l.primero, *actual = buscarUsuario(l, sock);
-		char msg[100], *listuser = getUsuario(actual), *user = (char*)malloc(sizeof(char)*strlen(listuser));
-        strcpy(user, listuser);
+		char msg[100], *listuser = getUsuario(actual), *user = (char*) malloc(
+				sizeof(char) * strlen(listuser));
+		strcpy(user, listuser);
 
 		while (i != strlen(user)) {
 			if (user[i] == '\n') {
@@ -288,11 +289,11 @@ int comandos(int sock, char* client_message) {
 	fflush(stdout);
 	//memset(mensaje,0,strlen(mensaje)+1);
 	//memset(token, '\0', sizeof(token) );
-}
+		}
 
-/*
- * Funcion que manejas las conexiones de cada cliente.
- * */
+	/*
+	 * Funcion que manejas las conexiones de cada cliente.
+	 * */
 void *connection_handler(void *socket_desc) {
 	//Obtiene el descriptor del socket
 	int sock = *(int*) socket_desc;
