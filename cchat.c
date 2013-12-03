@@ -107,8 +107,7 @@ int main(int argc, char **argv) {
 				"Introduzca todos lo argumentos : -n (nombre) -p (puerto) -h (host) -a (archivo)\n");
 		return 0;
 	}
-	printf("host = %s, port = %d, nombre = %s, archivo = %s\n", host, port,
-			nombre, archivo);
+	//printf("host = %s, port = %d, nombre = %s, archivo = %s\n", host, port, nombre, archivo);
 
 	for (index = optind; index < argc; index++)
 		printf("Opcion sin argumento. %s\n", argv[index]);
@@ -136,18 +135,18 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 
-	printf("socket abierto\n");
+	//printf("socket abierto\n");
 	serveraddr.sin_family = AF_INET;
 	serveraddr.sin_port = htons(port);
 	strcat(nombre, "\0");
-	printf("nombre%ses\n", nombre);
+	//printf("nombre%ses\n", nombre);
 	if ((connect(sockfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)))
 			< 0) {
 		printf("can't connect to server \n");
 	} else {
 		/* Pasamos el nombre de usuario al servidor para que lo guarde en su lista de sockets */
 
-		if (send(sockfd, nombre, strlen(nombre) + 1, 0) < 0) {
+		if (send(sockfd, nombre, strlen(nombre), 0) < 0) {
 			printf("Error enviando nombre.\n\0");
 		};
 
@@ -175,7 +174,10 @@ int main(int argc, char **argv) {
 
 				fgets(linea, 1000000, fp);
 				int length = strlen(linea);
-				linea[length] = '\0';
+				if (linea[length - 1] == '\n') {
+					linea[length - 1] = '\0';
+				}
+				//printf("luego '%s'\n", linea);
 				send(sockfd, linea, strlen(linea), 0);
 				sleep(1);
 

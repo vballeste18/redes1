@@ -179,13 +179,12 @@ int comandos(int sock, char* client_message) {
 		}
 		// Imprime en el cliente la lista de usuarios conectados al servidor.
 	} else if (0 == strncmp("usu", token, 3)) {
-		char nombre[50], *auxN;
+		char *auxN;
 		NODO *aux = l.primero;
 		while (aux != NULL) {
 			auxN = getUsuario(aux);
-			strcpy(nombre, auxN);
-			nombre[strlen(auxN)] = '\0';
-			write(sock, nombre, 50);
+            printf("auxN: '%s'", auxN);
+			write(sock, auxN, 50);
 			aux = aux->sig;
 			//memset(nombre,0,50);
 		}
@@ -196,7 +195,8 @@ int comandos(int sock, char* client_message) {
 		int fdSock;
 		unsigned i = 0;
 		NODO *aux = l.primero, *actual = buscarUsuario(l, sock);
-		char msg[100], *user = getUsuario(actual);
+		char msg[100], *listuser = getUsuario(actual), *user = (char*)malloc(sizeof(char)*strlen(listuser));
+        strcpy(user, listuser);
 
 		while (i != strlen(user)) {
 			if (user[i] == '\n') {

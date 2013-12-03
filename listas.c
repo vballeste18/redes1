@@ -19,7 +19,7 @@ Lista crearLista(Lista l) {
 Lista insertarNodo(Lista l, int id, char *usu) {
 	char *user = (char *) malloc(strlen(usu + 2) * sizeof(char));
 	strcpy(user, usu);
-	printf("user: %s\n", user);
+	printf("user: %s", user);
 //strcat(user,"\n");
 
 	Lista aux;
@@ -156,7 +156,7 @@ void imprimir(Lista l) {
 	}
 	aux = l.primero;
 	while (aux != NULL) {
-		printf("id: %d usuario: %s \n", aux->id, aux->usuario);
+		printf("id: %d usuario: %s", aux->id, aux->usuario);
 		aux = aux->sig;
 	}
 	return;
