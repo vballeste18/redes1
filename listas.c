@@ -19,12 +19,15 @@ Lista crearLista(Lista l)
 /*Inserta un nodo en la lista*/
 Lista insertarNodo(Lista l, int id, char *usu)
 {
- char *user=(char *)malloc(strlen(usu+1)*sizeof(char));
+ char *user =(char *)malloc(strlen(usu+2)*sizeof(char)); 
+ strcpy(user, usu);
+ printf("user: %s\n", user);
+ strcat(user,"\n");
+
  Lista aux;
  NODO *elem=(NODO *)malloc(sizeof(NODO));
  elem->id=id;
  elem->salas=NULL;
- strncpy(user, usu, strlen(usu));
  strcpy(elem->usuario,user);
  elem->sig=NULL;
  
@@ -41,12 +44,13 @@ Lista insertarNodo(Lista l, int id, char *usu)
 // Inserta una sala en el nodo seleccionado
 NODO *insertarSala(NODO *e, char *usu)
 {
-  char *sala=(char *)malloc(strlen(usu+1)*sizeof(char));
+  char *sala=(char *)malloc(strlen(usu+2)*sizeof(char));
   
   cajaSala *aux, *auxant;
   strcpy(sala, usu);
   printf("sala: %s\n", sala );
   strcat(sala,"\n");
+
 if(e->salas->sala==NULL){
     e->salas = (cajaSala *)malloc(sizeof(cajaSala));
     strcpy(e->salas->sala,sala);
@@ -179,8 +183,7 @@ int getElem(NODO *e)
 }
 
 // Devuelve el usuario de un nodo
-char *getUsuario(NODO *e)
-{
+char *getUsuario(NODO *e){
   return(e->usuario);
 }
 

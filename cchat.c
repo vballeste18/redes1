@@ -144,11 +144,12 @@ int main (int argc, char **argv){
   serveraddr.sin_family = AF_INET;
   serveraddr.sin_port = htons(port);
 	strcat(nombre,"\0");
+  printf("nombre%ses\n", nombre);
   if ((connect(sockfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) )< 0){ 
       printf("can't connect to server \n");
   }else{
     /* Pasamos el nombre de usuario al servidor para que lo guarde en su lista de sockets */
-    strcat(nombre,"\0");
+    
     if(send(sockfd,nombre,strlen(nombre)+1,0)<0){
       printf("Error enviando nombre.\n\0"); 
     };

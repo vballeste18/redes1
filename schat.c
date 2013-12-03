@@ -135,7 +135,7 @@ int main(int argc , char *argv[])
             return 1;
         }
         puts("Manejador asignado al hilo");
-	memset(buffer,0,strlen(buffer)+1);
+	//memset(buffer,0,strlen(buffer)+1);
     }
      
     if (client_sock < 0)
@@ -155,7 +155,7 @@ int comandos(int sock, char* client_message){
     mensaje = (char*) malloc(strlen(client_message)+1);
     strcpy(mensaje, client_message);
     token = strtok(client_message," ");
-    printf("comando pasado:%s\n", token);
+    printf("mensaje pasado:%s\n", mensaje);
     // Comando fue, desconecta al cliente que lo envio del server.
     if( 0 == strncmp("fue",token, 3)){
 
@@ -190,16 +190,17 @@ int comandos(int sock, char* client_message){
 	        nombre[strlen(auxN)]='\0';
         	write(sock,nombre, 50);
         	aux = aux->sig;
-	      	memset(nombre,0,50);
+	      	//memset(nombre,0,50);
       }
     // Manda un mensaje a todos los usuarios conectados a las salas del cliente.
     }else if( 0 == strncmp("men",token,3)){
 
     // acceder a un lista de sock para enviar el mensaje a todos los clientes que esten conectados
         int fdSock;
-	      unsigned i=0;
+	    unsigned i=0;
         NODO *aux = l.primero, *actual= buscarUsuario(l,sock);
-	      char msg[100],*user=getUsuario(actual);
+	    char msg[100],*user=getUsuario(actual);
+
 	      while(i!=strlen(user)){
 	         if(user[i]=='\n'){
 	             user[i]=' ';
@@ -209,7 +210,7 @@ int comandos(int sock, char* client_message){
 	      i++;
 	      }
         // Se le agrega el nombre del usuario que lo mando.
-    	  snprintf(msg,sizeof(msg),"%sdice: %s\n",user,&client_message[4]);
+    	  snprintf(msg,sizeof(msg),"%sdice: %s\n", user, &client_message[4]);
         while(aux != NULL){
             fdSock = getElem(aux);
             if (fdSock != sock){
@@ -284,7 +285,7 @@ int comandos(int sock, char* client_message){
         write(sock ,"Comando no valido.\n\0", 25);;
     }
     fflush(stdout);
-    memset(mensaje,0,strlen(mensaje)+1);
+    //memset(mensaje,0,strlen(mensaje)+1);
     //memset(token, '\0', sizeof(token) );
 }
  
@@ -296,7 +297,7 @@ void *connection_handler(void *socket_desc)
     //Obtiene el descriptor del socket
     int sock = *(int*)socket_desc;
     int read_size;
-    char sal[10] = "salida",*message , client_message[2000], *token;
+    char sal[10] = "salida",*message , client_message[2001], *token;
 
     //Recibe el mensaje del servidor
     while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 ){
